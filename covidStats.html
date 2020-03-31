@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- 
+  ~ Coded just for beginners so they can get an idea on how to get started building small projects..
+  ~ Pretty messy code, right? I know, a lot of room for improvements as I'm not JS expert ;)
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>COVID-19 Checker</title>
+    </head>
+<body>
+<h1>Covid-19 Statistics Checker Built With AJAX</h1>
+<input id="country" type="text">
+<button onclick="getData()">Get Data</button>
+<p id="demo"></p>
+
+<script>
+function getData() {
+  var country = document.getElementById('country').value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML = 'Confirmed Cases - ' + JSON.parse(this.responseText)['confirmed'].value + '<br>Recovered - ' + JSON.parse(this.responseText)['recovered'].value + '<br>Death(s) - ' + JSON.parse(this.responseText)['deaths'].value;
+    }
+  };
+  xhttp.open("GET", "https://covid19.mathdro.id/api/countries/" + country, true);
+  xhttp.send();
+}
+</script>
+</body>
+</html>
